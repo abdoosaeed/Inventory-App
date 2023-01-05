@@ -13,7 +13,7 @@ namespace InventoryManagementSystem
 {
     public partial class OrderModuleForm : Form
     {
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\acer\Documents\dbIMS.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-BUH2NDQ\SQLEXPRESS;Initial Catalog=inventoryDB;Integrated Security=True");
         SqlCommand cm = new SqlCommand();
         SqlDataReader dr;
         int qty = 0;
@@ -34,7 +34,7 @@ namespace InventoryManagementSystem
         {
             int i = 0;
             dgvCustomer.Rows.Clear();
-            cm = new SqlCommand("SELECT cid, cname FROM tbCustomer WHERE CONCAT(cid,cname) LIKE '%"+txtSearchCust.Text+"%'", con);
+            cm = new SqlCommand("SELECT CustomersId, Name FROM Customers WHERE CONCAT(CustomersId,Name) LIKE '%" + txtSearchCust.Text+"%'", con);
             con.Open();
             dr = cm.ExecuteReader();
             while (dr.Read())
@@ -50,13 +50,14 @@ namespace InventoryManagementSystem
         {
             int i = 0;
             dgvProduct.Rows.Clear();
-            cm = new SqlCommand("SELECT * FROM tbProduct WHERE CONCAT(pid, pname, pprice, pdescription, pcategory) LIKE '%" + txtSearchProd.Text + "%'", con);
+            cm = new SqlCommand("SELECT * FROM ProductInformation WHERE CONCAT(ProductId, ProductName, Price) LIKE '%" + txtSearchProd.Text + "%'", con);
+            //cm = new SqlCommand("SELECT * FROM ProductInformation", con);
             con.Open();
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
                 i++;
-                dgvProduct.Rows.Add(i, dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString());
+                dgvProduct.Rows.Add(i, dr[3].ToString(), dr[0].ToString(), dr[1].ToString(), dr[2].ToString());
             }
             dr.Close();
             con.Close();
@@ -134,7 +135,7 @@ namespace InventoryManagementSystem
                     MessageBox.Show("Order has been successfully inserted.");
                     
 
-                    cm = new SqlCommand("UPDATE tbProduct SET pqty=(pqty-@pqty) WHERE pid LIKE '"+ txtPid.Text +"' ", con);                    
+                    cm = new SqlCommand("UPDATE ProductInformation SET Qty=(Qty-@pqty) WHERE ProductId LIKE '"+ txtPid.Text +"' ", con);                    
                     cm.Parameters.AddWithValue("@pqty", Convert.ToInt16(UDQty.Value));
                    
                     con.Open();
@@ -173,7 +174,7 @@ namespace InventoryManagementSystem
 
         public void GetQty()
         {
-            cm = new SqlCommand("SELECT pqty FROM tbProduct WHERE pid='"+ txtPid.Text +"'", con);
+            cm = new SqlCommand("SELECT Qty FROM ProductInformation WHERE ProductId='"+ txtPid.Text +"'", con);
             con.Open();
             dr = cm.ExecuteReader();
             while (dr.Read())
@@ -184,6 +185,35 @@ namespace InventoryManagementSystem
             con.Close();
         }
 
-     
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void customersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            CustomerForm customerForm = new CustomerForm();
+            customerForm.ShowDialog();
+        }
+
+        private void productsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProductForm productForm = new ProductForm();
+            productForm.ShowDialog();
+        }
+
+        private void ordersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide(); 
+            OrderForm orderForm = new OrderForm();
+            orderForm.ShowDialog();
+        }
+
+        private void dgvProduct_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

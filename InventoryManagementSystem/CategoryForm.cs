@@ -24,18 +24,18 @@ namespace InventoryManagementSystem
 
         public void LoadCategory()
         {
-            int i = 0;
-            dgvCategory.Rows.Clear();
-            cm = new SqlCommand("SELECT * FROM tbCategory", con);
-            con.Open();
-            dr = cm.ExecuteReader();
-            while (dr.Read())
-            {
-                i++;
-                dgvCategory.Rows.Add(i, dr[0].ToString(), dr[1].ToString());
-            }
-            dr.Close();
-            con.Close();
+            //int i = 0;
+            //dgvCategory.Rows.Clear();
+            //cm = new SqlCommand("SELECT * FROM tbCategory", con);
+            //con.Open();
+            //dr = cm.ExecuteReader();
+            //while (dr.Read())
+            //{
+            //    i++;
+            //    dgvCategory.Rows.Add(i, dr[0].ToString(), dr[1].ToString());
+            //}
+            //dr.Close();
+            //con.Close();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

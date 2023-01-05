@@ -13,80 +13,143 @@ namespace InventoryManagementSystem
 {
     public partial class ProductForm : Form
     {
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\acer\Documents\dbIMS.mdf;Integrated Security=True;Connect Timeout=30");
-        SqlCommand cm = new SqlCommand();
-        SqlDataReader dr;
+        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-BUH2NDQ\SQLEXPRESS;Initial Catalog=inventoryDB;Integrated Security=True");
+
+        DataTable dt = new DataTable();
+        
+
         public ProductForm()
         {
             InitializeComponent();
             LoadProduct();
+            display_Data();
         }
 
         public void LoadProduct()
         {
-            int i = 0;
-            dgvProduct.Rows.Clear();
-            cm = new SqlCommand("SELECT * FROM tbProduct WHERE CONCAT(pid, pname, pprice, pdescription, pcategory) LIKE '%"+txtSearch.Text+"%'", con);
-            con.Open();
-            dr = cm.ExecuteReader();
-            while (dr.Read())
-            {
-                i++;
-                dgvProduct.Rows.Add(i, dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString());
-            }
-            dr.Close();
-            con.Close();
+            display_Data();
+
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            ProductModuleForm formModule = new ProductModuleForm();
-            formModule.btnSave.Enabled = true;
-            formModule.btnUpdate.Enabled = false;
-            formModule.ShowDialog();
-            LoadProduct();
-            
-        }
-
-        private void dgvProduct_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            string colName = dgvProduct.Columns[e.ColumnIndex].Name;
-            if (colName == "Edit")
-            {
-                ProductModuleForm productModule = new ProductModuleForm();
-                productModule.lblPid.Text = dgvProduct.Rows[e.RowIndex].Cells[1].Value.ToString();
-                productModule.txtPName.Text = dgvProduct.Rows[e.RowIndex].Cells[2].Value.ToString();
-                productModule.txtPQty.Text = dgvProduct.Rows[e.RowIndex].Cells[3].Value.ToString();
-                productModule.txtPPrice.Text = dgvProduct.Rows[e.RowIndex].Cells[4].Value.ToString();
-                productModule.txtPDes.Text = dgvProduct.Rows[e.RowIndex].Cells[5].Value.ToString();
-                productModule.comboCat.Text = dgvProduct.Rows[e.RowIndex].Cells[6].Value.ToString();
-
-                productModule.btnSave.Enabled = false;
-                productModule.btnUpdate.Enabled = true;                
-                productModule.ShowDialog();
-            }
-            else if (colName == "Delete")
-            {
-                if (MessageBox.Show("Are you sure you want to delete this product?", "Delete Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    con.Open();
-                    cm = new SqlCommand("DELETE FROM tbProduct WHERE pid LIKE '" + dgvProduct.Rows[e.RowIndex].Cells[1].Value.ToString() + "'", con);
-                    cm.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Record has been successfully deleted!");
-                }
-            }
-            LoadProduct();
-        }
+       
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             LoadProduct();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void DeleterButton1_Click(object sender, EventArgs e)
+        {
+            Delete_Formcs delete = new Delete_Formcs();
+            delete.Show();
+        }
+
+        public void display_Data()
+        {
+            con.Open();
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "Select * From ProductInformation";
+            cmd.ExecuteNonQuery();
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.Fill(dt);
+            dgvProduct.DataSource = dt;
+            con.Close();
+        }
+        private void Product_Form_Load(object sender, EventArgs e)
+        {
+            display_Data();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
+            Add_Form add = new Add_Form();
+            add.Show();
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Update_cs Update = new Update_cs();
+            Update.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Delete_Formcs Delete = new Delete_Formcs();
+            Delete.Show();
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Select * From ProductInformation where @ProductName = ProductName", con);
+            cmd.Parameters.AddWithValue("@ProductName", txtSearch.Text);
+            cmd.ExecuteNonQuery();
+            DataTable dt = new DataTable();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.Fill(dt);
+            dgvProduct.DataSource = dt;
+            con.Close();
+
+            con.Close();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are You Want To Delete All Data?", "Deleting", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                SqlConnection con = new SqlConnection("Data Source=DESKTOP-BUH2NDQ\\SQLEXPRESS;Initial Catalog=inventoryDB;Integrated Security=True");
+                con.Open();
+                SqlCommand cmd = new SqlCommand("Delete from ProductInformation", con);
+
+                cmd.ExecuteNonQuery();
+                con.Close();
+                MessageBox.Show("Successfully Deleted");
+            }
+        }
+
+        private void customersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            CustomerForm customerForm = new CustomerForm();
+            customerForm.ShowDialog();
+
+        }
+
+        private void productsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProductForm productForm = new ProductForm();
+            productForm.ShowDialog();
+        }
+
+ 
+        private void ordersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            OrderForm orderForm = new OrderForm();
+            orderForm.ShowDialog();
+        }
+
+        private void dgvProduct_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void ProductForm_Load(object sender, EventArgs e)
+        {
+            display_Data();
+        }
+
+        private void usersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            UserForm userForm = new UserForm();
+            userForm.ShowDialog();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace InventoryManagementSystem
 {
     public partial class CustomerModuleForm : Form
     {
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\acer\Documents\dbIMS.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-BUH2NDQ\SQLEXPRESS;Initial Catalog=inventoryDB;Integrated Security=True");
         SqlCommand cm = new SqlCommand();
         public CustomerModuleForm()
         {
@@ -27,7 +27,7 @@ namespace InventoryManagementSystem
                 if (MessageBox.Show("Are you sure you want to save this customer?", "Saving Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
 
-                    cm = new SqlCommand("INSERT INTO tbCustomer(cname,cphone)VALUES(@cname, @cphone)", con);
+                    cm = new SqlCommand("INSERT INTO Customers(Name,Phone)VALUES(@cname, @cphone)", con);
                     cm.Parameters.AddWithValue("@cname", txtCName.Text);
                     cm.Parameters.AddWithValue("@cphone", txtCPhone.Text);
                     con.Open();
@@ -70,7 +70,7 @@ namespace InventoryManagementSystem
                 if (MessageBox.Show("Are you sure you want to update this Customer?", "Update Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
 
-                    cm = new SqlCommand("UPDATE tbCustomer SET cname = @cname,cphone=@cphone WHERE cid LIKE '" + lblCId.Text + "' ", con);
+                    cm = new SqlCommand("UPDATE Customers SET Name = @cname,Phone=@cphone WHERE CustomersId LIKE '" + lblCId.Text + "' ", con);
                     cm.Parameters.AddWithValue("@cname", txtCName.Text);               
                     cm.Parameters.AddWithValue("@cphone", txtCPhone.Text);
                     con.Open();

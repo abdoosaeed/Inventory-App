@@ -13,7 +13,7 @@ namespace InventoryManagementSystem
 {
     public partial class CustomerForm : Form
     {
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\acer\Documents\dbIMS.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-BUH2NDQ\SQLEXPRESS;Initial Catalog=inventoryDB;Integrated Security=True");
         SqlCommand cm = new SqlCommand();
         SqlDataReader dr;
         public CustomerForm()
@@ -26,13 +26,13 @@ namespace InventoryManagementSystem
         {
             int i = 0;
             dgvCustomer.Rows.Clear();
-            cm = new SqlCommand("SELECT * FROM tbCustomer", con);
+            cm = new SqlCommand("SELECT * FROM Customers", con);
             con.Open();
             dr = cm.ExecuteReader();
             while (dr.Read())
             {
                 i++;
-                dgvCustomer.Rows.Add(i, dr[0].ToString(), dr[1].ToString(), dr[2].ToString());
+                dgvCustomer.Rows.Add(i, dr[2].ToString(), dr[0].ToString() , dr[1].ToString());
             }
             dr.Close();
             con.Close();
@@ -68,13 +68,60 @@ namespace InventoryManagementSystem
                 if (MessageBox.Show("Are you sure you want to delete this customer?", "Delete Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     con.Open();
-                    cm = new SqlCommand("DELETE FROM tbCustomer WHERE cid LIKE '" + dgvCustomer.Rows[e.RowIndex].Cells[1].Value.ToString() + "'", con);
+                    cm = new SqlCommand("DELETE FROM Customers WHERE CustomersId LIKE '" + dgvCustomer.Rows[e.RowIndex].Cells[1].Value.ToString() + "'", con);
                     cm.ExecuteNonQuery();
                     con.Close();
                     MessageBox.Show("Record has been successfully deleted!");
                 }
             }
             LoadCustomer();
+        }
+
+      
+
+        private void customersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            CustomerForm customerForm = new CustomerForm();
+            customerForm.ShowDialog();
+        }
+
+        private void openChildForm(CustomerForm customerForm)
+        {
+            this.Hide();
+            customerForm.ShowDialog();
+        }
+
+        private void productsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProductForm productForm = new ProductForm();
+            productForm.ShowDialog();
+        }
+
+        private void ordersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            OrderForm orderForm = new OrderForm();
+            orderForm.ShowDialog();
+        }
+
+        private void openChildForm(OrderForm orderForm)
+        {
+            this.Hide();
+            orderForm.ShowDialog();
+        }
+
+        private void usersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            UserForm userForm = new UserForm();
+            userForm.ShowDialog();
+        }
+
+        private void CustomerForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

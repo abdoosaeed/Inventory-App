@@ -15,6 +15,8 @@ namespace InventoryManagementSystem
         public MainForm()
         {
             InitializeComponent();
+            
+            
         }
 
         //to show subform form in mainform
@@ -37,26 +39,41 @@ namespace InventoryManagementSystem
         private void btnUser_Click(object sender, EventArgs e)
         {
             openChildForm(new UserForm());
+            this.Hide();
+            UserForm userForm = new UserForm();
+            userForm.ShowDialog();
         }
 
         private void btnCustomer_Click(object sender, EventArgs e)
         {
             openChildForm(new CustomerForm());
+            this.Hide();
+            CustomerForm customerForm = new CustomerForm();
+            customerForm.ShowDialog();
         }
 
         private void btnCategory_Click(object sender, EventArgs e)
         {
-            openChildForm(new CategoryForm());
+            //openChildForm(new CategoryForm());
+            this.Hide();
+            CategoryForm categoryForm = new CategoryForm();
+            categoryForm.ShowDialog();
         }
 
         private void btnProduct_Click(object sender, EventArgs e)
         {
-            openChildForm(new ProductForm());
+            //openChildForm(new ProductForm());
+            this.Hide();
+            ProductForm productForm = new ProductForm();
+            productForm.ShowDialog();
         }
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
             openChildForm(new OrderForm());
+            this.Hide();
+            OrderForm orderForm = new OrderForm();
+            orderForm.ShowDialog();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -75,6 +92,11 @@ namespace InventoryManagementSystem
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void panelMain_Paint(object sender, PaintEventArgs e)
         {
 
         }

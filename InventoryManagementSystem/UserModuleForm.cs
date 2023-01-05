@@ -14,7 +14,7 @@ namespace InventoryManagementSystem
     public partial class UserModuleForm : Form
     {
 
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\acer\Documents\dbIMS.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-BUH2NDQ\SQLEXPRESS;Initial Catalog=inventoryDB;Integrated Security=True");
         SqlCommand cm = new SqlCommand();
         public UserModuleForm()
         {
@@ -38,7 +38,7 @@ namespace InventoryManagementSystem
                 if (MessageBox.Show("Are you sure you want to save this user?", "Saving Record",MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
                 {
                     
-                    cm = new SqlCommand("INSERT INTO tbUser(username,fullname,password,phone)VALUES(@username,@fullname,@password,@phone)", con);
+                    cm = new SqlCommand("INSERT INTO tbUser(username,fullname,password,phone) VALUES(@username,@fullname,@password,@phone)", con);
                     cm.Parameters.AddWithValue("@username", txtUserName.Text);
                     cm.Parameters.AddWithValue("@fullname", txtFullName.Text);
                     cm.Parameters.AddWithValue("@password", txtPass.Text);
@@ -54,6 +54,7 @@ namespace InventoryManagementSystem
             {
 
                 MessageBox.Show(ex.Message);
+                con.Close();
             }
         }
 

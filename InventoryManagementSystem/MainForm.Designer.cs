@@ -71,7 +71,7 @@ namespace InventoryManagementSystem
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(962, 93);
+            this.panel1.Size = new System.Drawing.Size(962, 75);
             this.panel1.TabIndex = 0;
             // 
             // pictureBox1
@@ -80,7 +80,7 @@ namespace InventoryManagementSystem
             this.pictureBox1.Image = global::InventoryManagementSystem.Properties.Resources.inventory;
             this.pictureBox1.Location = new System.Drawing.Point(12, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(114, 83);
+            this.pictureBox1.Size = new System.Drawing.Size(114, 65);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
@@ -169,11 +169,12 @@ namespace InventoryManagementSystem
             this.panelMain.Controls.Add(this.label5);
             this.panelMain.Controls.Add(this.btnCategory);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(0, 93);
+            this.panelMain.Location = new System.Drawing.Point(0, 75);
             this.panelMain.Margin = new System.Windows.Forms.Padding(4);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(962, 533);
+            this.panelMain.Size = new System.Drawing.Size(962, 534);
             this.panelMain.TabIndex = 2;
+            this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
             // 
             // panel2
             // 
@@ -303,7 +304,8 @@ namespace InventoryManagementSystem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(962, 626);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(962, 609);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

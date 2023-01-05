@@ -13,7 +13,7 @@ namespace InventoryManagementSystem
 {
     public partial class UserForm : Form
     {
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\acer\Documents\dbIMS.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-BUH2NDQ\SQLEXPRESS;Initial Catalog=inventoryDB;Integrated Security=True");
         SqlCommand cm = new SqlCommand();
         SqlDataReader dr;
         public UserForm()
@@ -75,6 +75,35 @@ namespace InventoryManagementSystem
                 }
             }
             LoadUser();
+        }
+
+        private void customerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            CustomerForm customerForm = new CustomerForm();
+            customerForm.ShowDialog();
+
+        }
+
+        private void productsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProductForm productForm = new ProductForm();
+            productForm.ShowDialog();
+        }
+
+        private void usersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            UserForm userForm = new UserForm();
+            userForm.ShowDialog();
+        }
+
+        private void ordersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            OrderForm orderForm = new OrderForm();
+            orderForm.ShowDialog();
         }
     }
 }

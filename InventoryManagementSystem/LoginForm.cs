@@ -11,10 +11,12 @@ using System.Windows.Forms;
 
 namespace InventoryManagementSystem
 {
+    
     public partial class LoginForm : Form
     {
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\acer\Documents\dbIMS.mdf;Integrated Security=True;Connect Timeout=30");
-        SqlCommand cm = new SqlCommand();
+        DB_Controller controller = DB_Controller.Instance;
+        SqlCommand cmd;
+        SqlConnection cn;
         SqlDataReader dr;
         public LoginForm()
         {
@@ -48,26 +50,47 @@ namespace InventoryManagementSystem
         {
             try
             {
-                cm = new SqlCommand("SELECT * FROM tbUser WHERE username=@username AND password=@password", con);
-                cm.Parameters.AddWithValue("@username", txtName.Text);
-                cm.Parameters.AddWithValue("@password", txtPass.Text);
-                con.Open();
-                dr = cm.ExecuteReader();
-                dr.Read();
-                if (dr.HasRows)
+
+                if (txtPass.Text != string.Empty || txtName.Text != string.Empty)
                 {
-                    MessageBox.Show("Welcome " + dr["fullname"].ToString() + " | ", "ACCESS GRANTED", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    MainForm main = new MainForm();
-                    this.Hide();
-                    main.ShowDialog();
-                    
+                    bool value = controller.LogIn(txtName.Text, txtPass.Text);
+                    if (value)
+                    {
+                        MessageBox.Show($"Welcome {txtName}");
+                        this.Hide();
+                        MainForm home = new MainForm();
+                        home.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No Account avilable with this username and password ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                 }
                 else
                 {
-                    MessageBox.Show("Invalid username or password!", "ACCESS DENITED", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Please enter value in all field.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                con.Close();
-            }
+            
+                //cm = new SqlCommand("SELECT * FROM tbUser WHERE username=@username AND password=@password", con);
+                //cm.Parameters.AddWithValue("@username", txtName.Text);
+                //cm.Parameters.AddWithValue("@password", txtPass.Text);
+                //con.Open();
+                //dr = cm.ExecuteReader();
+                //dr.Read();
+                //if (dr.HasRows)
+                //{
+                //    MessageBox.Show("Welcome " + dr["fullname"].ToString() + " | ", "ACCESS GRANTED", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    MainForm main = new MainForm();
+                //    this.Hide();
+                //    main.ShowDialog();
+
+            //}
+            //else
+            //{
+            //}
+            //con.Close();
+        }
             catch (Exception ex)
             {
 
@@ -75,6 +98,16 @@ namespace InventoryManagementSystem
             }
         }
 
-       
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            cn = new SqlConnection(@"Data Source=DESKTOP-BUH2NDQ\SQLEXPRESS;Initial Catalog=inventoryDB;Integrated Security=True");
+            cn.Open();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            DB_Controller controller = DB_Controller.Instance;
+            label5.Text = controller.Test_con();
+        }
     }
 }

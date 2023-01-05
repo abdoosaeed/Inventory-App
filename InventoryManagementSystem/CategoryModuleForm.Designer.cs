@@ -74,7 +74,7 @@ namespace InventoryManagementSystem
             this.label1.Location = new System.Drawing.Point(5, 14);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(144, 19);
+            this.label1.Size = new System.Drawing.Size(182, 23);
             this.label1.TabIndex = 1;
             this.label1.Text = "Category Module";
             // 
@@ -83,7 +83,7 @@ namespace InventoryManagementSystem
             this.lblCatId.AutoSize = true;
             this.lblCatId.Location = new System.Drawing.Point(40, 141);
             this.lblCatId.Name = "lblCatId";
-            this.lblCatId.Size = new System.Drawing.Size(77, 17);
+            this.lblCatId.Size = new System.Drawing.Size(96, 20);
             this.lblCatId.TabIndex = 35;
             this.lblCatId.Text = "category Id";
             this.lblCatId.Visible = false;
@@ -132,9 +132,9 @@ namespace InventoryManagementSystem
             // 
             // txtCatName
             // 
-            this.txtCatName.Location = new System.Drawing.Point(133, 86);
+            this.txtCatName.Location = new System.Drawing.Point(163, 85);
             this.txtCatName.Name = "txtCatName";
-            this.txtCatName.Size = new System.Drawing.Size(396, 22);
+            this.txtCatName.Size = new System.Drawing.Size(396, 26);
             this.txtCatName.TabIndex = 29;
             // 
             // label2
@@ -142,13 +142,13 @@ namespace InventoryManagementSystem
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(18, 88);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(112, 17);
+            this.label2.Size = new System.Drawing.Size(139, 20);
             this.label2.TabIndex = 28;
             this.label2.Text = "Category Name : ";
             // 
             // CategoryModuleForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(602, 182);
             this.Controls.Add(this.panel1);

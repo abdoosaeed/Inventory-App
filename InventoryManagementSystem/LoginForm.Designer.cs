@@ -43,6 +43,7 @@ namespace InventoryManagementSystem
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxPass = new System.Windows.Forms.CheckBox();
             this.lblClear = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -196,12 +197,23 @@ namespace InventoryManagementSystem
             this.lblClear.Text = "Clear";
             this.lblClear.Click += new System.EventHandler(this.lblClear_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(120, 489);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 21);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "label5";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(385, 550);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblClear);
             this.Controls.Add(this.checkBoxPass);
@@ -218,6 +230,7 @@ namespace InventoryManagementSystem
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "A";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
@@ -243,6 +256,7 @@ namespace InventoryManagementSystem
         private System.Windows.Forms.CheckBox checkBoxPass;
         private System.Windows.Forms.Label lblClear;
         private System.Windows.Forms.PictureBox pictureBoxClose;
+        private System.Windows.Forms.Label label5;
     }
 }
 

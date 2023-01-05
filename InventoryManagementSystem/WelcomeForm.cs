@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace InventoryManagementSystem
 {
     public partial class WelcomeForm : Form
@@ -15,6 +14,7 @@ namespace InventoryManagementSystem
         public WelcomeForm()
         {
             InitializeComponent();
+ 
             timer1.Start();
         }
         int startPoint = 0;
@@ -30,6 +30,18 @@ namespace InventoryManagementSystem
                 this.Hide();
                 login.ShowDialog();
             }
+        }
+
+        private void WelcomeForm_Load(object sender, EventArgs e)
+        {
+            
+            
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            DB_Controller controller = DB_Controller.Instance;
+            label3.Text = controller.Test_con();
         }
     }
 }
